@@ -1,0 +1,12 @@
+C:\Naguib\Project\GraphicsProject\GraphicsProject\bin\Debug\GraphicsProject.exe.config
+C:\Naguib\Project\GraphicsProject\GraphicsProject\bin\Debug\GraphicsProject.exe
+C:\Naguib\Project\GraphicsProject\GraphicsProject\bin\Debug\GraphicsProject.pdb
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.csproj.AssemblyReference.cache
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.csproj.SuggestedBindingRedirects.cache
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.Form1.resources
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.Properties.Resources.resources
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.csproj.GenerateResource.cache
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.csproj.CoreCompileInputs.cache
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.exe
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.pdb
+C:\Naguib\Project\GraphicsProject\GraphicsProject\obj\Debug\GraphicsProject.Form2.resources
