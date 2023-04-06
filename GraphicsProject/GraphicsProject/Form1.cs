@@ -11,14 +11,13 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace GraphicsProject
 {
     public partial class Form1 : Form
     {
-        
-       
         public Form1()
         {
             InitializeComponent();
@@ -52,7 +51,6 @@ namespace GraphicsProject
             g.FillRectangle(aBrush, (int)Math.Round(x), (int)Math.Round(y), 2, 2);
             for (int i = 0; i < steps; i++)
             {
-               
                 x += xIncrement;
                 y += yIncrement;
 
@@ -63,7 +61,62 @@ namespace GraphicsProject
                 var Y = (int)Math.Round(y);
 
                 g.FillRectangle(aBrush, (int)Math.Round(x) , (int)Math.Round(y), 2, 2);
+                xElements.Add(x);
+                yElements.Add(y);
             }
+
+            int nrows = xElements.Count;
+            int ncol = 3;
+            int[,] arr = new int[ncol, nrows];
+            for (int i = 0; i < nrows; i++)
+            {
+                arr[0, i] = i;
+                arr[1, i] = Convert.ToInt32(xElements[i]);
+                arr[2, i] = Convert.ToInt32(yElements[i]);
+            }
+            StreamWriter page = new StreamWriter(@"index.html");
+            page.WriteLine("<!DOCTYPE html><html><body>");
+            page.WriteLine("<h1 style = 'text-align: center;'>" +
+                " DDA Line Drawing Algorithm From Point (" + x1 + ", " + y1 + ") To Point (" + x2 + ", " + y2 + ")");
+            page.WriteLine("<table>");
+            page.WriteLine("<thead>");
+            page.WriteLine("<tr>");
+            page.WriteLine("<th>K</th>");
+            page.WriteLine("<th>X</th>");
+            page.WriteLine("<th>Y</th>");
+            page.WriteLine("</tr>");
+            page.WriteLine("</thead>");
+
+            page.WriteLine("<tbody>");
+            for (int i = 0; i < nrows; i++)
+            {
+                page.WriteLine("<tr>");
+
+                for (int j = 0; j < ncol; j++)
+                {
+                    page.WriteLine("<td>");
+                    page.WriteLine(arr[j, i]);
+                    page.WriteLine("</td>");
+                }
+
+                page.WriteLine("</tr>");
+            }
+            page.WriteLine("</tbody>");
+            page.WriteLine("</table>");
+
+            page.WriteLine("</body></html>");
+
+            page.WriteLine("<style>");
+            page.WriteLine("table {border: 1px solid black; margin-left: auto; margin-right: auto; border-collapse: collapse;  width: 1000px; text-align: center; font-size: 20px;}");
+            page.WriteLine("table thead th {background-color: #54585d; color: #ffffff; font-weight: bold; font-size: 13px; border: 1px solid #54585d;}");
+            page.WriteLine("table tbody td {color: #636363; border: 1px solid #dddfe1;}");
+            page.WriteLine("table tbody tr {background-color: #f9fafb;}");
+            page.WriteLine("table tbody tr:nth-child(odd) {background-color: #ffffff;}");
+            page.WriteLine("body {background-color: #E8E8E8;}");
+            page.WriteLine("</style>");
+
+            page.Close();
+            MessageBox.Show("Done it");
         }
 
         public void lineBres(int x1, int y1, int x2, int y2)
@@ -79,6 +132,9 @@ namespace GraphicsProject
    
             int twoDy = 2 * dy;
             int twoDyMinusDx = 2 * (dy - dx);
+
+            ArrayList xElements = new ArrayList();
+            ArrayList yElements = new ArrayList();
 
             if (x1 > x2){
                 x = x2;
@@ -103,7 +159,62 @@ namespace GraphicsProject
                     p += twoDyMinusDx;
                 }
                 g.FillRectangle(aBrush, x, y, 2, 2);
+                xElements.Add(x);
+                yElements.Add(y);
             }
+
+            int nrows = xElements.Count;
+            int ncol = 3;
+            int[,] arr = new int[ncol, nrows];
+            for (int i = 0; i < nrows; i++)
+            {
+                arr[0, i] = i;
+                arr[1, i] = Convert.ToInt32(xElements[i]);
+                arr[2, i] = Convert.ToInt32(yElements[i]);
+            }
+            StreamWriter page = new StreamWriter(@"index.html");
+            page.WriteLine("<!DOCTYPE html><html><body>");
+            page.WriteLine("<h1 style = 'text-align: center;'>" +
+                " Bresenham Line Drawing Algorithm From Point (" + x1 + ", " + y1 + ") To Point (" + x2 + ", " + y2 + ")");
+            page.WriteLine("<table>");
+            page.WriteLine("<thead>");
+            page.WriteLine("<tr>");
+            page.WriteLine("<th>K</th>");
+            page.WriteLine("<th>X</th>");
+            page.WriteLine("<th>Y</th>");
+            page.WriteLine("</tr>");
+            page.WriteLine("</thead>");
+
+            page.WriteLine("<tbody>");
+            for (int i = 0; i < nrows; i++)
+            {
+                page.WriteLine("<tr>");
+
+                for (int j = 0; j < ncol; j++)
+                {
+                    page.WriteLine("<td>");
+                    page.WriteLine(arr[j, i]);
+                    page.WriteLine("</td>");
+                }
+
+                page.WriteLine("</tr>");
+            }
+            page.WriteLine("</tbody>");
+            page.WriteLine("</table>");
+
+            page.WriteLine("</body></html>");
+
+            page.WriteLine("<style>");
+            page.WriteLine("table {border: 1px solid black; margin-left: auto; margin-right: auto; border-collapse: collapse;  width: 1000px; text-align: center; font-size: 20px;}");
+            page.WriteLine("table thead th {background-color: #54585d; color: #ffffff; font-weight: bold; font-size: 13px; border: 1px solid #54585d;}");
+            page.WriteLine("table tbody td {color: #636363; border: 1px solid #dddfe1;}");
+            page.WriteLine("table tbody tr {background-color: #f9fafb;}");
+            page.WriteLine("table tbody tr:nth-child(odd) {background-color: #ffffff;}");
+            page.WriteLine("body {background-color: #E8E8E8;}");
+            page.WriteLine("</style>");
+
+            page.Close();
+            MessageBox.Show("Done it");
         }
 
 
@@ -132,6 +243,7 @@ namespace GraphicsProject
             int p = 1 - radius;
             CirclePlotPoints(xCenter, yCenter, x, y);
             while (x < y) {
+
                 pElements.Add(p);
                 x++;
                 if (p < 0)
@@ -141,11 +253,71 @@ namespace GraphicsProject
                     y--;
                     p += 2 * (x-y) + 1;
                 }
-                xElements.Add(x);
-                yElements.Add(y);
-                
+                xElements.Add(xCenter + x);
+                yElements.Add(yCenter + y);
+
                 CirclePlotPoints(xCenter, yCenter, x, y);
             }
+            int nrows = xElements.Count;
+            int ncol = 6;
+            int[,] arr = new int[ncol, nrows];
+            for (int i = 0; i < nrows; i++)
+            {
+                arr[0, i] = i;
+                arr[1, i] = Convert.ToInt32(pElements[i]);
+                arr[2, i] = Convert.ToInt32(xElements[i]);
+                arr[3, i] = Convert.ToInt32(yElements[i]);
+                arr[4, i] = 2 * Convert.ToInt32(xElements[i]);
+                arr[5, i] = 2 * Convert.ToInt32(yElements[i]);
+            }
+
+            StreamWriter page = new StreamWriter(@"index.html");
+            page.WriteLine("<!DOCTYPE html><html><body>");
+            page.WriteLine("<h1 style = 'text-align: center;'>" +
+                " Bresenham Circle Algorithm With Center (" + xCenter + ", "+ yCenter+") And " +
+                "Radius: " + radius +"</h1>");
+            page.WriteLine("<table>");
+            page.WriteLine("<thead>");
+            page.WriteLine("<tr>");
+            page.WriteLine("<th>K</th>");
+            page.WriteLine("<th>PK</th>");
+            page.WriteLine("<th>X+1</th>");
+            page.WriteLine("<th>Y+1</th>");
+            page.WriteLine("<th>2X+1</th>");
+            page.WriteLine("<th>2Y+1</th>");
+            page.WriteLine("</tr>");
+            page.WriteLine("</thead>");
+
+            page.WriteLine("<tbody>");
+            for (int i = 0; i < nrows; i++)
+            {
+                page.WriteLine("<tr>");
+
+                for (int j = 0; j < ncol; j++)
+                {
+                    page.WriteLine("<td>");
+                    page.WriteLine(arr[j, i]);
+                    page.WriteLine("</td>");
+                }
+
+                page.WriteLine("</tr>");
+            }
+            page.WriteLine("</tbody>");
+            page.WriteLine("</table>");
+
+            page.WriteLine("</body></html>");
+
+            page.WriteLine("<style>");
+            page.WriteLine("table {border: 1px solid black; margin-left: auto; margin-right: auto; border-collapse: collapse;  width: 1000px; text-align: center; font-size: 20px;}");
+            page.WriteLine("table thead th {background-color: #54585d; color: #ffffff; font-weight: bold; font-size: 13px; border: 1px solid #54585d;}");
+            page.WriteLine("table tbody td {color: #636363; border: 1px solid #dddfe1;}");
+            page.WriteLine("table tbody tr {background-color: #f9fafb;}");
+            page.WriteLine("table tbody tr:nth-child(odd) {background-color: #ffffff;}");
+            page.WriteLine("body {background-color: #E8E8E8;}");
+            page.WriteLine("</style>");
+
+            page.Close();
+            MessageBox.Show("Done it");
         }
 
         public void ellipsePlotPoints(int xCenter, int yCenter, int x, int y)
@@ -169,11 +341,20 @@ namespace GraphicsProject
             dx = 2 * yRadius * yRadius * x;
             dy = 2 * xRadius * xRadius * y;
 
+            var xElements = new ArrayList();
+            var yElements = new ArrayList();
+            var pElements = new ArrayList();
+            var dXElements = new ArrayList();
+            var dYElements = new ArrayList();
+
+
             while (dx < dy) {
+                pElements.Add(p1);
+
                 ellipsePlotPoints(xCenter, yCenter, x, y);
                 if (p1 < 0) {
                     x++;
-                    dx = dx + (2 * yRadius*  yRadius);
+                    dx = dx + (2 * yRadius *  yRadius);
                     p1 = p1 + dx + (yRadius * yRadius);
                 }
 
@@ -184,6 +365,10 @@ namespace GraphicsProject
                     dy = dy - (2 * xRadius * xRadius);
                     p1 = p1 + dx - dy + (yRadius * yRadius);
                 }
+                dXElements.Add(dx);
+                dYElements.Add(dy);
+                xElements.Add(x + xCenter);
+                yElements.Add(y + yCenter);
             }
 
             double p2 = ((yRadius * yRadius) * ((x + 0.5) * (x + 0.5))) + ((xRadius * xRadius) * ((y - 1) * (y - 1))) - (xRadius * xRadius * yRadius* yRadius);
@@ -209,37 +394,70 @@ namespace GraphicsProject
                 }
             }
 
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int nrows = 2;
-            int ncol = 3;
+            int nrows = xElements.Count;
+            int ncol = 6;
+            int[,] arr = new int[ncol, nrows];
+            for (int i = 0; i < nrows; i++)
+            {
+                arr[0, i] = i;
+                arr[1, i] = Convert.ToInt32(pElements[i]);
+                arr[2, i] = Convert.ToInt32(xElements[i]);
+                arr[3, i] = Convert.ToInt32(yElements[i]);
+                arr[4, i] = Convert.ToInt32(dXElements[i]);
+                arr[5, i] = Convert.ToInt32(dYElements[i]);
+            }
 
             StreamWriter page = new StreamWriter(@"index.html");
             page.WriteLine("<!DOCTYPE html><html><body>");
-            page.WriteLine("<table style = 'width = 100' 'height = 100' 'border:solid black;'>");
-            for(int i = 0; i < nrows; i++)
-            { 
+            page.WriteLine("<h1 style = 'text-align: center;'>" +
+                " Bresenham Circle Algorithm With Center (" + xCenter + ", " + yCenter + ") And " +
+                "Radius: </h1>");
+            page.WriteLine("<table>");
+            page.WriteLine("<thead>");
+            page.WriteLine("<tr>");
+            page.WriteLine("<th>K</th>");
+            page.WriteLine("<th>PK</th>");
+            page.WriteLine("<th>X+1</th>");
+            page.WriteLine("<th>Y+1</th>");
+            page.WriteLine("<th>2X+1</th>");
+            page.WriteLine("<th>2Y+1</th>");
+            page.WriteLine("</tr>");
+            page.WriteLine("</thead>");
+
+            page.WriteLine("<tbody>");
+            for (int i = 0; i < nrows; i++)
+            {
                 page.WriteLine("<tr>");
-            
+
                 for (int j = 0; j < ncol; j++)
                 {
-                    page.WriteLine("<td style = 'border:solid black;'>");
-                    page.WriteLine("mohamed");
+                    page.WriteLine("<td>");
+                    page.WriteLine(arr[j, i]);
                     page.WriteLine("</td>");
                 }
 
                 page.WriteLine("</tr>");
             }
+            page.WriteLine("</tbody>");
             page.WriteLine("</table>");
 
             page.WriteLine("</body></html>");
+
+            page.WriteLine("<style>");
+            page.WriteLine("table {border: 1px solid black; margin-left: auto; margin-right: auto; border-collapse: collapse;  width: 1000px; text-align: center; font-size: 20px;}");
+            page.WriteLine("table thead th {background-color: #54585d; color: #ffffff; font-weight: bold; font-size: 13px; border: 1px solid #54585d;}");
+            page.WriteLine("table tbody td {color: #636363; border: 1px solid #dddfe1;}");
+            page.WriteLine("table tbody tr {background-color: #f9fafb;}");
+            page.WriteLine("table tbody tr:nth-child(odd) {background-color: #ffffff;}");
+            page.WriteLine("body {background-color: #E8E8E8;}");
+            page.WriteLine("</style>");
+
             page.Close();
-            MessageBox.Show("<Done it>");
+            MessageBox.Show("Done it");
+        }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
             string t1 = textBox1.Text;
             string t2 = textBox2.Text;
             string t3 = textBox3.Text;
@@ -271,6 +489,7 @@ namespace GraphicsProject
 
         private void button3_Click(object sender, EventArgs e)
         {
+
             string t1 = textBox5.Text;
             string t2 = textBox6.Text;
             string t3 = textBox7.Text;
@@ -279,7 +498,7 @@ namespace GraphicsProject
             int y = Int16.Parse(t2);
             int r = Int16.Parse(t3);
 
-            circle(x, y, r);
+            circle(x, y , r);
 
         }
         private void button4_Click(object sender, EventArgs e)
@@ -299,6 +518,11 @@ namespace GraphicsProject
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
             Pen blackpen = new Pen(Color.Black, 3);
 
             Graphics g = e.Graphics;
@@ -307,108 +531,6 @@ namespace GraphicsProject
             g.DrawLine(pen, 190, 0, 190, 500);
 
             g.Dispose();
-        }
-
-        public void tableCircle(int n)
-        {
-            int nrows = n;
-            int ncol = 6;
-            
-            StreamWriter page = new StreamWriter(@"index.html");
-            page.WriteLine("<!DOCTYPE html><html><body>");
-            page.WriteLine("<table>");
-            page.WriteLine("<thead>");
-            page.WriteLine("<tr>");
-            page.WriteLine("<th>K</th>");
-            page.WriteLine("<th>PK</th>");
-            page.WriteLine("<th>X+1</th>");
-            page.WriteLine("<th>Y+1</th>");
-            page.WriteLine("<th>2X+1</th>");
-            page.WriteLine("<th>2Y+1</th>");
-            page.WriteLine("</tr>");
-            page.WriteLine("</thead>");
-
-            page.WriteLine("<tbody>");
-            for (int i = 0; i < nrows; i++)
-            {
-                page.WriteLine("<tr>");
-
-                for (int j = 0; j < ncol; j++)
-                {
-                    page.WriteLine("<td style = 'border:solid black;'>");
-                    page.WriteLine("mohamed");
-                    page.WriteLine("</td>");
-                }
-
-                page.WriteLine("</tr>");
-            }
-            page.WriteLine("</tbody>");
-            page.WriteLine("</table>");
-
-            page.WriteLine("</body></html>");
-
-            page.WriteLine("<style>");
-            page.WriteLine("table {border: 1px solid black; margin-left: auto; margin-right: auto; border-collapse: collapse;  width: 1000px; text-align: center; font-size: 20px;}");
-            page.WriteLine("table thead th {background-color: #54585d; color: #ffffff; font-weight: bold; font-size: 13px; border: 1px solid #54585d;}");
-            page.WriteLine("table tbody td {color: #636363; border: 1px solid #dddfe1;}");
-            page.WriteLine("table tbody tr {background-color: #f9fafb;}");
-            page.WriteLine("table tbody tr:nth-child(odd) {background-color: #ffffff;}");
-
-            page.WriteLine("</style>");
-
-            page.Close();
-            MessageBox.Show("Done it");
-        }
-        private void button5_Click_1(object sender, EventArgs e)
-        {
-            int nrows = 3;
-            int ncol = 2;
-            int[,] a = {{ 1, 2, 3 }, { 5, 6, 7} };
-
-            StreamWriter page = new StreamWriter(@"index.html");
-            page.WriteLine("<!DOCTYPE html><html><body>");
-            page.WriteLine("<table>");
-            page.WriteLine("<thead>");
-            page.WriteLine("<tr>");
-            page.WriteLine("<th>K</th>");
-            page.WriteLine("<th>PK</th>");
-            //page.WriteLine("<th>X+1</th>");
-            //page.WriteLine("<th>Y+1</th>");
-            //page.WriteLine("<th>2X+1</th>");
-            //page.WriteLine("<th>2Y+1</th>");
-            page.WriteLine("</tr>");
-            page.WriteLine("</thead>");
-
-            page.WriteLine("<tbody>");
-            for (int i = 0; i < nrows; i++)
-            {
-                page.WriteLine("<tr>");
-
-                for (int j = 0; j < ncol; j++)
-                {
-                    page.WriteLine("<td style = 'border:solid black;'>");
-                    page.WriteLine( a[j,i]);
-                    page.WriteLine("</td>");
-                }
-
-                page.WriteLine("</tr>");
-            }
-            page.WriteLine("</tbody>");
-            page.WriteLine("</table>");
-
-            page.WriteLine("</body></html>");
-
-            page.WriteLine("<style>");
-            page.WriteLine("table {border: 1px solid black; margin-left: auto; margin-right: auto; border-collapse: collapse;  width: 1000px; text-align: center; font-size: 20px;}");
-            page.WriteLine("table thead th {background-color: #54585d; color: #ffffff; font-weight: bold; font-size: 13px; border: 1px solid #54585d;}");
-            page.WriteLine("table tbody td {color: #636363; border: 1px solid #dddfe1;}");
-            page.WriteLine("table tbody tr {background-color: #f9fafb;}");
-            page.WriteLine("table tbody tr:nth-child(odd) {background-color: #ffffff;}");
-
-            page.WriteLine("</style>");
-
-            page.Close();
-            MessageBox.Show("Done it");
         }
     }
 }
